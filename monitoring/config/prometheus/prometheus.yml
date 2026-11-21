@@ -117,11 +117,15 @@ scrape_configs:
 
   - job_name: process
     static_configs:
-      - targets: ["192.168.1.13:9256"]
-        labels: { host: monitoring }
-      - targets: ["192.168.1.11:9256"]
+      # pve
+      - targets: ["192.168.1.5:9256"]
+        labels: { host: pve }
+      # k8s-cp
+      - targets: ["192.168.1.21:9256"]
         labels: { host: k8s-cp }
-      - targets: ["192.168.1.12:9256"]
+      # k8s-worker
+      - targets: ["192.168.1.32:9256"]
         labels: { host: k8s-worker }
-      - targets: ["192.168.1.10:9256"]
-        labels: { host: proxmox }
+      # monitoring
+      - targets: ["192.168.1.23:9256"]
+        labels: { host: monitoring }
