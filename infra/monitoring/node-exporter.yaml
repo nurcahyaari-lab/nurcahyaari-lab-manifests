@@ -23,10 +23,10 @@ spec:
           image: quay.io/prometheus/node-exporter:v1.13.1
           args:
             - --path.rootfs=/hosts
-            - --web.listen-address=:9100
+            - --web.listen-address=:9200
           ports:
             - name: metrics
-              containerPort: 9100
+              containerPort: 9200
           resources:
             requests:
               cpu: 10m
