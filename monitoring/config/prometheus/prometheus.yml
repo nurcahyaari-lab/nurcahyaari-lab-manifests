@@ -9,7 +9,7 @@ alerting:
   alertmanagers:
     - static_configs:
         - targets:
-            - localhost:9090
+            - localhost:9093
 
 scrape_configs:
   - job_name: prometheus
@@ -41,7 +41,7 @@ scrape_configs:
     relabel_configs:
       - source_labels: [__address__]          # discovered as "192.168.1.12:10250"
         regex: "(.+):\\d+"
-        replacement: "${1}:9100"              # → "192.168.1.22:9100"
+        replacement: "${1}:9200"              # → "192.168.1.22:9200" (the DaemonSet listens on 9200)
         target_label: __address__
       - source_labels: [__meta_kubernetes_node_name]
         target_label: instance    
@@ -114,3 +114,14 @@ scrape_configs:
         target_label: instance                 # instance="192.168.1.10"
       - target_label: __address__
         replacement: 127.0.0.1:9221            # but actually connect to the exporter
+
+  - job_name: process
+    static_configs:
+      - targets: ["192.168.1.13:9256"]
+        labels: { host: monitoring }
+      - targets: ["192.168.1.11:9256"]
+        labels: { host: k8s-cp }
+      - targets: ["192.168.1.12:9256"]
+        labels: { host: k8s-worker }
+      - targets: ["192.168.1.10:9256"]
+        labels: { host: proxmox }
