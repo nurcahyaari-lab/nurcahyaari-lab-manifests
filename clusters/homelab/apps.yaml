@@ -15,3 +15,9 @@ spec:
   path: ./apps
   prune: true
   wait: true
+  # sops decryptor
+  # this cluster uses sops + external-secret
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
