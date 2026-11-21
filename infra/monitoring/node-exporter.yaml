@@ -20,7 +20,7 @@ spec:
         - operator: Exists
       containers:
         - name: node-exporter
-          image: quey.io/prometheus/node-exporter:v1.12.1
+          image: quay.io/prometheus/node-exporter:v1.13.1
           args:
             - --path.rootfs=/hosts
             - --web.listen-address=:9100
