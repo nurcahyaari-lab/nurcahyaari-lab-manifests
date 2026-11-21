@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - serviceaccount.yaml
+  - clusterrole.yaml
+  - rolebinding.yaml
+  - deployment.yaml
+patches:
+  - target:
+      kind: Deployment
+      name: kubelet-csr-approver
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: kubelet-csr-approver
+      spec:
+        template:
+          spec:
+            containers:
+              - name: kubelet-csr-approver
+                env:
+                  - name: PROVIDER_REGEX
+                    value: ^k8s-(cp|w[0-9]+)$
+                  - name: PROVIDER_IP_PREFIXES
+                    value: 192.168.56.0/24
+                  - name: BYPASS_DNS_RESOLUTION
+                    value: "true"
