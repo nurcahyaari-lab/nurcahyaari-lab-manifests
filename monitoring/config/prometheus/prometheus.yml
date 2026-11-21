@@ -1,0 +1,116 @@
+global:
+  scrape_interval: 30s
+  evaluation_interval: 30s
+
+rule_files:
+  - /etc/prometheus/rules/*.yml
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - localhost:9090
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets:
+          - localhost:9090
+
+  # Non Kubernetes Machine
+  - job_name: node
+    static_configs:
+      - targets:
+          - 192.168.1.5:9100
+        labels:
+          host: proxmox
+      - targets:
+          - 192.168.1.23:9100
+        labels:
+          host: monitoring
+
+  # Kubernetes Machine
+  - job_name: k8s-node-exporter
+    kubernetes_sd_configs:
+      - role: node
+        api_server: https://192.168.1.21:6443
+        authorization:
+          credentials_file: /etc/prometheus-secrets/k8s-token
+        tls_config:
+          ca_file: /etc/prometheus-secrets/k8s-ca.crt
+    relabel_configs:
+      - source_labels: [__address__]          # discovered as "192.168.1.12:10250"
+        regex: "(.+):\\d+"
+        replacement: "${1}:9100"              # → "192.168.1.22:9100"
+        target_label: __address__
+      - source_labels: [__meta_kubernetes_node_name]
+        target_label: instance    
+
+  # Kubelet Metrics
+  - job_name: kubelet
+    scheme: https
+    authorization:
+      credentials_file: /etc/prometheus-secrets/k8s-token
+    tls_config:
+      ca_file: /etc/prometheus-secrets/k8s-ca.crt
+    kubernetes_sd_configs:
+      - role: node
+        api_server: https://192.168.1.21:6443
+        authorization:
+          credentials_file: /etc/prometheus-secrets/k8s-token
+        tls_config:
+          ca_file: /etc/prometheus-secrets/k8s-ca.crt
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_node_name]
+        target_label: node
+
+  # Container CPU / memory (cAdvisor, built into the kubelet)
+  - job_name: cadvisor
+    scheme: https
+    metrics_path: /metrics/cadvisor
+    authorization:
+      credentials_file: /etc/prometheus-secrets/k8s-token
+    tls_config:
+      ca_file: /etc/prometheus-secrets/k8s-ca.crt
+    kubernetes_sd_configs:
+      - role: node
+        api_server: https://192.168.1.21:6443
+        authorization:
+          credentials_file: /etc/prometheus-secrets/k8s-token
+        tls_config:
+          ca_file: /etc/prometheus-secrets/k8s-ca.crt
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_node_name]
+        target_label: node
+
+  # State of Kubernetes objects
+  - job_name: kube-state-metrics
+    static_configs:
+      - targets: ["192.168.1.21:30080"]
+
+  # API server
+  - job_name: apiserver
+    scheme: https
+    authorization:
+      credentials_file: /etc/prometheus-secrets/k8s-token
+    tls_config:
+      ca_file: /etc/prometheus-secrets/k8s-ca.crt
+    static_configs:
+      - targets: ["192.168.1.21:6443"]
+
+  # Proxmox
+  - job_name: pve
+    metrics_path: /pve
+    params:
+      module: [default]
+      cluster: ["1"]
+      node: ["1"]
+    static_configs:
+      - targets: ["192.168.1.5"]              # the Proxmox host to ask about
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target           # → ?target=192.168.1.10
+      - source_labels: [__param_target]
+        target_label: instance                 # instance="192.168.1.10"
+      - target_label: __address__
+        replacement: 127.0.0.1:9221            # but actually connect to the exporter
