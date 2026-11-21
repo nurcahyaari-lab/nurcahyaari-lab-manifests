@@ -4,3 +4,4 @@ resources:
   - kubelet-csr-approver
   - metrics-server
   - external-secrets
+  - monitoring
