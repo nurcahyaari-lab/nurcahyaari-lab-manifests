@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - kubelet-csr-approver
   - metrics-server
+  - external-secrets
