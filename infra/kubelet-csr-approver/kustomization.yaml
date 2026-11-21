@@ -23,6 +23,6 @@ patches:
                   - name: PROVIDER_REGEX
                     value: ^k8s-(cp|w[0-9]+)$
                   - name: PROVIDER_IP_PREFIXES
-                    value: 192.168.56.0/24
+                    value: 192.168.1.0/24
                   - name: BYPASS_DNS_RESOLUTION
                     value: "true"
