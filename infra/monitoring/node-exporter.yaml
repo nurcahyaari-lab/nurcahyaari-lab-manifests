@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app: node-exporter
   template:
-    metadat:
+    metadata:
       labels:
         app: node-exporter
     spec:
@@ -40,9 +40,9 @@ spec:
             allowPrivilegeEscalation: false
           volumeMounts:
             - name: root
-              mounthPath: /host
+              mountPath: /host
               readOnly: true
-              mounthPropagation: HostToContainer
+              mountPropagation: HostToContainer
       volumes:
         - name: root
           hostPath:
