@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - service-account.yaml
   - secret.yaml
+  - externalsecret.yaml
   - configmap.yaml
   - cluster-role.yaml
   - cluster-role-binding.yaml
