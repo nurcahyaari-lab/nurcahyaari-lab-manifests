@@ -34,6 +34,11 @@ data:
         - Github:
             - abbr: GH
               href: https://github.com/
+  proxmox.yaml: |
+    pve: # must match your actual Proxmox node name
+      url: http://192.168.1.5:8006
+      token: {{HOMEPAGE_VAR_PROXMOX_USER_ID}}
+      secret: {{HOMEPAGE_VAR_PROXMOX_TOKEN}}
   services.yaml: |
     - Hypervisor:
         - Proxmox:
