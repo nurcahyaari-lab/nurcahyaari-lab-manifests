@@ -19,7 +19,7 @@ metadata:
   namespace: ollama
 spec:
   selector:
-    app: open-webui
+    app: openweb-ui
   ports:
     - port: 8080
       targetPort: 8080
