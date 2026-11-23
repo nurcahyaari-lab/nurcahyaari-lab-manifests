@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: open-webui
-  name: open-webui
+    app: openweb-ui
+  name: openweb-ui
   namespace: ollama
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: open-webui
+      app: openweb-ui
   template:
     metadata:
       labels:
-        app: open-webui
+        app: openweb-ui
     spec:  
       volumes:
       - name: webui-data
