@@ -6,3 +6,4 @@ resources:
   - deployment.yaml
   - openwebui.yaml
   - service.yaml
+  - ingress.yaml

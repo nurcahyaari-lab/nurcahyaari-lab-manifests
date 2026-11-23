@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: openweb-ui
+  namespace: ollama
+spec:
+  rules:
+    - host: chat.nurcahyaari.lab.internal
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: openweb-ui
+                port:
+                  number: 8080

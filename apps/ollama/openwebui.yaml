@@ -26,7 +26,7 @@ spec:
         - containerPort: 8080
         env:
         - name: OLLAMA_BASE_URL
-          value: http://svc-ollama:11434
+          value: http://ollama:11434
         volumeMounts:
           - name: webui-data
             mountPath: /app/backend/data
