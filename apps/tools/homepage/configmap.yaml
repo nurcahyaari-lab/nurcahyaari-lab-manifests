@@ -44,8 +44,8 @@ data:
             widget:
               type: proxmox
               url: https://192.168.1.5:8006
-              username: {{ PROXMOX_USER_ID }}
-              password: {{ PROXMOX_TOKEN }}
+              username: {{HOMEPAGE_VAR_PROXMOX_USER_ID}}
+              password: {{HOMEPAGE_VAR_PROXMOX_TOKEN}}
 
     # "Cluster Management" is the same group the Homepage ingress
     # annotation uses, so the auto-discovered Homepage card lands here too
@@ -67,11 +67,11 @@ data:
             siteMonitor: http://192.168.1.23:3000
             widget:
               type: grafana
-                version: 2 # optional, default is 1
-                alerts: alertmanager # optional, default is grafana
-                url: http://grafana.host.or.ip:port
-                username: {{ GRAFANA_USERNAME }}
-                password: {{ GRAFANA_PASSWORD }}
+              version: 2 # optional, default is 1
+              alerts: alertmanager # optional, default is grafana
+              url: http://192.168.1.23:3000
+              username: {{HOMEPAGE_VAR_GRAFANA_USERNAME}}
+              password: {{HOMEPAGE_VAR_GRAFANA_PASSWORD}}
         - Prometheus:
             icon: prometheus.png
             href: http://192.168.1.23:9090/targets
