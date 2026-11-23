@@ -3,6 +3,13 @@ kind: Ingress
 metadata:
   name: openweb-ui
   namespace: ollama
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Chat
+    gethomepage.dev/description: Open WebUI · local LLMs via Ollama
+    gethomepage.dev/group: Apps
+    gethomepage.dev/icon: open-webui.png
+    gethomepage.dev/pod-selector: app=open-webui
 spec:
   rules:
     - host: chat.nurcahyaari.lab.internal
