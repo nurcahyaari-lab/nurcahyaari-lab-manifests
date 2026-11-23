@@ -95,7 +95,7 @@ data:
         - podinfo:
             icon: si-go
             description: demo app for testing deploys
-            siteMonitor: "http://podinfo.podinfo.svc.cluster.local"
+            siteMonitor: "http://podinfo.tools.svc.cluster.local"
   widgets.yaml: |
     - kubernetes:
         cluster:
