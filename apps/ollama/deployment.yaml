@@ -8,6 +8,8 @@ metadata:
     prometheus.io/port: "11434"
     prometheus.io/path: "/metrics"
 spec:
+  strategy:
+    type: Recreate
   replicas: 1
   selector:
     matchLabels:
@@ -17,8 +19,6 @@ spec:
       labels:
         app: ollama
     spec:
-      strategy:
-        type: Recreate
       containers:
       - name: ollama
         image: ollama/ollama:latest
