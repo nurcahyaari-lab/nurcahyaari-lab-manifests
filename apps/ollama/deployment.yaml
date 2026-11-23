@@ -3,6 +3,10 @@ kind: Deployment
 metadata:
   name: ollama
   namespace: ollama
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "11434"
+    prometheus.io/path: "/metrics"
 spec:
   replicas: 1
   selector:
