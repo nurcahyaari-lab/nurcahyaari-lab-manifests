@@ -1,0 +1,14 @@
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: grafana-1
+  namespace: tools
+  labels:
+    kubernetes.io/service-name: grafana   # this links it to the Service above
+addressType: IPv4
+ports:
+  - name: http
+    port: 3000
+endpoints:
+  - addresses:
+      - 192.168.1.23

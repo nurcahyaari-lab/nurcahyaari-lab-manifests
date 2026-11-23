@@ -5,14 +5,12 @@ metadata:
   namespace: tools
   labels:
     app.kubernetes.io/name: homepage
-  annotations:
-    metallb.io/loadBalancerIPs: 192.168.1.200
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app.kubernetes.io/name: homepage
   ports:
     - port: 3000
-      targetport: http
+      targetPort: http
       protocol: TCP
       name: http
