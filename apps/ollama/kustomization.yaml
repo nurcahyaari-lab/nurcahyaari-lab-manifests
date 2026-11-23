@@ -4,4 +4,5 @@ resources:
   - namespace.yaml
   - persistent-volume-claim.yaml
   - deployment.yaml
+  - openwebui.yaml
   - service.yaml
