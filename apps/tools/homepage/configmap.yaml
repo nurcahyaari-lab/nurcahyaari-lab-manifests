@@ -9,6 +9,7 @@ data:
   kubernetes.yaml: |
     mode: cluster
   settings.yaml: |
+    favicon: https://raw.githubusercontent.com/nurcahyaari-lab/assets/7c6a3b11254e2161246adf592aaa03072ef042c9/favicon/homelab-icon.svg
     title: nurcahyaari-lab
     theme: dark
     color: slate
