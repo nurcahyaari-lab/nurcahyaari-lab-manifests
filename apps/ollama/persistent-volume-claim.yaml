@@ -9,3 +9,14 @@ spec:
   resources:
     requests:
       storage: 32Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: openwebui-storage
+  namespace: ollama
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 2Gi

@@ -18,7 +18,7 @@ spec:
       volumes:
       - name: webui-data
         persistentVolumeClaim:
-          claimName: ollama-pvc
+          claimName: openwebui-storage
       containers:
       - image: ghcr.io/open-webui/open-webui
         name: open-webui
